@@ -1,5 +1,5 @@
 const mongoose = require('mongoose')
-const mongooseUrl = "mongodb://localhost:27017/takemynote"
+const mongooseUrl = "mongodb://127.0.0.1:27017/takemynote"
 const connectToMongo = () => {
     mongoose.connect(mongooseUrl,()=>{
         console.log("connected to mongo sucessfully")
