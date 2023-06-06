@@ -4,6 +4,7 @@ import React from 'react'
 import Navbar from './components/Navbar';
 import Home from "./components/Home"
 import About from "./components/About"
+import Alert from "./components/Alert"
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,6 +17,7 @@ function App() {
       <NotesState>
         <Router>
           <Navbar />
+          <Alert message={"This is a alert"}/>
         <div className="container">
           <Routes>
             <Route exact path='/' element={<Home />} />
