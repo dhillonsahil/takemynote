@@ -21,7 +21,6 @@ export default function Notes() {
     }
     
     const handleclick= async (e)=>{
-        console.log("Updating the note",nt)
         editNote(nt.id,nt.etitle,nt.edescription,nt.etag)
         refclose.current.click()
         // e.preventDefault();
@@ -68,6 +67,9 @@ export default function Notes() {
             </div>
             <div className="row my-3">
                 <h2>Your Notes</h2>
+                <div className="container">
+                    {note.length===0 && "No Notes To Display"}
+                </div>
                 {note.map((element) => {
                     return <NoteItem key={element._id} updateNote={updateNote} note={element} />
                 })}

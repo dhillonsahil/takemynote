@@ -2,8 +2,8 @@ import React from 'react'
 
 export default function Alert(props) {
   return (
-    <div className='container'>
-        <div className="alert alert-sucess" role="alert">
+    <div className='container my-2'>
+        <div className="alert alert-success" role="alert">
             {props.message}
 </div>
     </div>
