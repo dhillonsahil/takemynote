@@ -1,6 +1,6 @@
 import { useState } from "react";
 import NotesContext from "./NotesContext";
-const NotesSate = (props) => {
+const NotesState = (props) => {
   const host = "http://localhost:5000/"
   const nt = []
   const [note, setNote] = useState(nt);
@@ -8,15 +8,19 @@ const NotesSate = (props) => {
   // get all notes
   const getNotes = async () => {
     // api call
-    const response =await fetch(`${host}api/notes/fetchallnotes`, {
-      method: 'GET',
-      headers: {
-        'Content-Type': 'application/json',
-        'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ3ZGUyNmVlNjc1NTM1ZGZmNDVhZDUwIn0sImlhdCI6MTY4NjA0NzMwMH0.HUZPMMMm9SYHwXjr9eCQv35iT7CxoaJyLcS03XUvxmU"
-      }
-    });
-    const json = await response.json()
-    setNote(json)
+    try {
+      const response =await fetch(`${host}api/notes/fetchallnotes`, {
+        method: 'GET',
+        headers: {
+          'Content-Type': 'application/json',
+          'auth-token': "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjQ3ZGUyNmVlNjc1NTM1ZGZmNDVhZDUwIn0sImlhdCI6MTY4NjA0NzMwMH0.HUZPMMMm9SYHwXjr9eCQv35iT7CxoaJyLcS03XUvxmU"
+        }
+      });
+      const json = await response.json()
+      setNote(json)
+    } catch (error) {
+      console.log("Error fetching notes:", error);
+    }
   }
   //add a note
   const addNote = async (title, description, tag) => {
@@ -30,16 +34,6 @@ const NotesSate = (props) => {
       body: JSON.stringify({ "title":title,"description": description, "tag":tag })
       // body: {title,description,tag }
     });
-    // let no = {
-    //   "_id": "647de2b5e675535dff45ad54",
-    //   "user": "647de26ee675535dff45ad50",
-    //   "title": title,
-    //   "description": description,
-    //   "tag": tag,
-    //   "date": "2023-06-05T13:27:17.293Z",
-    //   "__v": 0
-    // };
-    // setNote(note.concat(no))
     getNotes()
   }
  
@@ -86,4 +80,4 @@ const NotesSate = (props) => {
     </NotesContext.Provider>
   )
 }
-export default NotesSate;
+export default NotesState;
