@@ -20,11 +20,12 @@ export default function Notes() {
     }
     
     const handleclick= (e)=>{
+        console.log("Updating the note",nt)
         e.preventDefault();
         
     }
-    const onchange = (e) => {
-        setNt({ ...note, [e.target.name]: e.target.value })
+    const onChange = (e)=>{
+        setNt({...nt, [e.target.name]: e.target.value})
     }
     return (
         <>
@@ -42,22 +43,22 @@ export default function Notes() {
                         <div className="modal-body">
                             <form action="" className="my-3">
                                 <div className="mb-3">
-                                    <label htmlFor="etitle" className="form-label">Update Title</label>
-                                    <input type="text" className="form-control" onChange={onchange} id="etitle" name="etitle" value={nt.etitle} placeholder="Today's Task" />
+                                    <label htmlFor="title" className="form-label">Update Title</label>
+                                    <input type="text" className="form-control" id="etitle" name="etitle" value={nt.etitle} placeholder="Today's Task"  onChange={onChange}  />
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="edescription" className="form-label">Update Note</label>
-                                    <textarea className="form-control" onChange={onchange} value={nt.edescription} id="edescription" name="edescription" rows="3"></textarea>
+                                    <label htmlFor="description" className="form-label">Update Note</label>
+                                    <textarea className="form-control" id="edescription" name="edescription" rows="3" value={nt.edescription}  onChange={onChange} ></textarea>
                                 </div>
                                 <div className="mb-3">
-                                    <label htmlFor="etag" className="form-label">Update Tag</label>
-                                    <input type="text" className="form-control" onChange={onchange} value={nt.etag} id="etag" name="etag" placeholder="Today's Task" />
+                                    <label htmlFor="tag" className="form-label">Update Tag</label>
+                                    <input type="text" className="form-control" id="etag" name="etag" placeholder="Today's Task" value={nt.etag}  onChange={onChange}  />
                                 </div>
                             </form>
                         </div>
                         <div className="modal-footer">
                             <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" className="btn btn-primary">Save changes</button>
+                            <button type="button" className="btn btn-primary" onClick={handleclick}>Save changes</button>
                         </div>
                     </div>
                 </div>
