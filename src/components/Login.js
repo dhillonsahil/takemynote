@@ -36,7 +36,7 @@ function Login() {
         </div>
         <label htmlFor="password" className="form-label">Password</label>
         <input type="password" name="password" id="password" value={credentials.password} className="form-control" onChange={onChange} aria-labelledby="passwordHelpBlock" />
-        <div id="password" className="form-text">
+        <div id="labelpassword" className="form-text">
           Your password must be 8-20 characters long, contain letters and numbers, and must not contain spaces, special characters, or emoji.
         </div>
         <button className="btn btn-primary">Login</button>

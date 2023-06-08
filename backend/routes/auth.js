@@ -15,17 +15,17 @@ router.post('/createuser', [
     body('email','Please enter a valid email').isEmail(),
     body('password','Password length must be atleast 5').isLength({min : 5}),
 ], async (req, res) => {// if not added correctly errors
-
+    let success=false;
     const errors = validationResult(req);
     if(!errors.isEmpty()){
-        return res.status(400).json({errors : errors.array()})
+        return res.status(400).json({success,errors : errors.array()})
     }
 
    try {
     // if user already exists then show user already exists
        let user = await User.findOne({email : req.body.email})
        if(user){
-           return res.status(400).json({error : "Email already exists"})
+           return res.status(400).json({success,error : "Email already exists"})
         }
 
         // creating hashpassword to add security in database we will store hashpassword
@@ -46,7 +46,8 @@ router.post('/createuser', [
         }
      }
      const authToken = jwt.sign(data,jwt_secret)
-     return res.json({authToken})
+     success=true;
+     return res.json({success,authToken})
    } catch (error) {
     console.error("internal server error");
     return res.status(500).json({error : "Internal Server error"})
