@@ -60,8 +60,9 @@ router.post('/login', [
     body('password','Password cannot be blank').exists()
 ], async (req, res) => {// if not added correctly errors
     const errors = validationResult(req);
+    let success=false;
     if(!errors.isEmpty()){
-        return res.status(400).json({errors : errors.array()});
+        return res.status(400).json({success,errors : errors.array()});
     }
 
     const {email, password} = req.body;
@@ -69,12 +70,14 @@ router.post('/login', [
         // let user =await User.findOne({email})
         let user = await User.findOne({email: { $regex: new RegExp('^' + email + '$', 'i') }}); // Use $regex with 'i' option for case-insensitive search
         if(!user){
-            return res.status(400).json({error : "Please check Your Login Credentials"})
+            let success=false;
+            return res.status(400).json({success,error : "Please check Your Login Credentials"})
         }
 
         const passwordCompare =await bcrypt.compare(password,user.password)
         if(!passwordCompare){
-            return res.status(400).json({error : "Please check Your Login Credentials"})
+            let success=false;
+            return res.status(400).json({success,error : "Please check Your Login Credentials"})
         }
 
         const data={
@@ -83,7 +86,8 @@ router.post('/login', [
             }
         }
         const authToken = jwt.sign(data,jwt_secret)
-        res.json(authToken)
+        let success=true;
+        res.json({success ,authToken})
     } catch (error) {
         console.error("internal server error");
         return res.status(500).json({error : "Internal Server error"})
