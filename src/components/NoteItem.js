@@ -9,10 +9,11 @@ export default function NoteItem(props) {
     // handle delete
     const handleDelete = () => {
         deleteNote(note._id);
+        props.showAlert("Note Deleted Succesfully","Oops")
       };
 
-    const handleUpdate = ()=>{
-        updateNote(note);
+    const handleUpdate = async()=>{
+       await updateNote(note);
     }  
     return (
         <div className='col-md-3'>

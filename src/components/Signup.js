@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { useNavigate } from 'react-router-dom'
-function Signup() {
+function Signup(props) {
   const [credentials,setCredentials]=useState({name:"",email:"",password:"",cpassword:""})
   
    const onChange = (e)=>{
@@ -27,11 +27,12 @@ function Signup() {
     console.log(json)
     if(json.success){
       navigate('/')
+      props.showAlert("Account Created Succesfully","success")
     }else{
-      alert("Signup Failed ! Try with another email")
+      props.showAlert("Signup Failed ! Try with another email","danger")
     }
     }else{
-      alert("Password and Confirm Password are different")
+      props.showAlert("Password And Confirm Password Are different","danger")
     }
    }
   return (

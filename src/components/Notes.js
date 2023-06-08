@@ -3,7 +3,7 @@ import { useContext, useEffect, useRef, useState } from 'react'
 import NotesContext from '../context/notes/NotesContext'
 import NoteItem from './NoteItem';
 import AddNote from './AddNote';
-export default function Notes() {
+export default function Notes(props) {
 
     const notescont = useContext(NotesContext);
     const { note, getNotes ,editNote} = notescont;
@@ -18,11 +18,13 @@ export default function Notes() {
     const updateNote = (currentnote) => {
         ref.current.click(); 
         setNt({id:currentnote._id ,etitle : currentnote.title, edescription:currentnote.description,etag:currentnote.tag})
+       
     }
     
     const handleclick= async (e)=>{
         editNote(nt.id,nt.etitle,nt.edescription,nt.etag)
         refclose.current.click()
+        props.showAlert("Note Updated Succesfully","success")
         // e.preventDefault();
         
     }
@@ -31,7 +33,7 @@ export default function Notes() {
     }
     return (
         <>
-            <AddNote />
+            <AddNote showAlert={props.showAlert} />
             <button ref={ref} type="button" hidden={true} className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 Edit Note
             </button>
@@ -71,7 +73,7 @@ export default function Notes() {
                     {note.length===0 && "No Notes To Display"}
                 </div>
                 {note.map((element) => {
-                    return <NoteItem key={element._id} updateNote={updateNote} note={element} />
+                    return <NoteItem key={element._id} updateNote={updateNote} showAlert={props.showAlert} note={element} />
                 })}
             </div>
         </>
