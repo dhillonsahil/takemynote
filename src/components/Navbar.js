@@ -2,16 +2,17 @@ import React from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { useNavigate } from 'react-router-dom';
 
-export default function Navbar() {
-    let location =useLocation();
-
-    let navigate=useNavigate();
-    const handleLogout = ()=>{
-        localStorage.removeItem('token')
-        window.location.reload()
-        navigate('/login')
+export default function Navbar(props) {
+    let  navigate=useNavigate();
+    
+    const handleLogout =()=>{
+        localStorage.removeItem('token');
+        // window.location.reload()
+        navigate('/login');
+        props.showAlert("Logged Out Successfully","success")
     }
     
+    let location =useLocation();
     return (
         <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
             <div className="container-fluid">
@@ -28,11 +29,10 @@ export default function Navbar() {
                             <Link className={`nav-link ${location.pathname==="/about"?"active":""}`} to="/about">About</Link>
                         </li>
                     </ul>
-                    {!localStorage.getItem('token')?
-                    <form className="d-flex">
+                    {!localStorage.getItem('token')?<form className="d-flex">
                         <Link to="/login" className="btn btn-primary  mx-1" role="button">Login</Link>
                         <Link to="/signup" className="btn btn-primary  mx-1" role="button">Signup</Link>
-                    </form>:<Link to="/" className="btn btn-primary  mx-1" onClick={handleLogout} role="button">Logut</Link>
+                    </form>: <button onClick={handleLogout} className='btn btn-primary' >Logout</button>
                         }
                 </div>
             </div>
